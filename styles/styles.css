@@ -3,6 +3,56 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+}
+
+.darken {
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.7), 
+    rgba(0, 0, 0, 0.7)
+  );
+}
+
+#page-header {
+  text-align: center;
+}
+
+#library {
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 20px;
+}
+
+.book-container {
+  border: 1px solid green;
+  padding: 10px 50px;
+}
+
+.book-container-line {
+  margin: 0px 0px 20px 20px;
+  padding: 10px;
+  border: 1px solid black;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-container, p, h2 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.book-container-remove {
+  margin: 0px 0px 5px 20px;
+  padding: px;
+  text-align: center;
+}
+
+.book-container-remove, button {
+  font-size: 20px;
 }
 
 #book-entering-form {
@@ -12,10 +62,11 @@ body {
   padding: 10px 10px;
   margin: 0 auto;
   z-index: 1;
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%) ;
+  transform: translate(-50%, -50%);
+  background-color: white;
 }
 
 .invisible{
@@ -31,10 +82,12 @@ body {
 
 #closing-button {
   display: inline-block;
-  width: 15px;
-  height: auto;
+  width: 20px;
+  height: 20px;
   font-size: 20px;
   text-align: center;
+  vertical-align: center;
+  line-height: 18px;
   border: 1px solid black;
   border-radius: 100%;
   cursor: pointer;
@@ -56,4 +109,25 @@ body {
   margin-bottom: 0;
   margin-top: 60px;
   
+}
+
+#page-footer {
+  bottom: 0px;
+  right: 0px;
+  margin-left: auto;
+  position: relative;
+}
+
+#show-book-entering-form {
+  text-align: center;
+  vertical-align: center;
+  line-height: 50px;
+  margin-left: auto;
+  text-align: center;
+  border: 1px solid blue;
+  font-size: 80px;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  cursor: pointer;
 }
