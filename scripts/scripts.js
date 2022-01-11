@@ -108,20 +108,20 @@ const addBooksToLibrary = () => {
   for (let i = 0; i < libraryArray.length; i++) {
     buttonId++;
     const bookContainer = document.createElement('div');
-    bookContainer.classList.add('book-container');
     const newAuthor = libraryArray[i].author;
     const newTitle = libraryArray[i].title;
     const numberOfPages = libraryArray[i].numberOfPages;
     const haveRead = libraryArray[i].haveRead;
     const authorDiv = document.createElement('div');
-    authorDiv.classList.add('book-container-line');
     const titleDiv = document.createElement('div');
-    titleDiv.classList.add('book-container-line');
     const pagesDiv = document.createElement('div');
-    pagesDiv.classList.add('book-container-line');
     const readDiv = document.createElement('div');
-    readDiv.classList.add('book-container-line');
     const removeButton = document.createElement('div');
+    bookContainer.classList.add('book-container');
+    authorDiv.classList.add('book-container-line');
+    titleDiv.classList.add('book-container-line');
+    pagesDiv.classList.add('book-container-line');
+    readDiv.classList.add('book-container-line');
     removeButton.classList.add('book-container-remove');
     removeButton.setAttribute('id', `${buttonId}`);
     authorDiv.innerHTML = `<h2>Author</h2> <p>${newAuthor}</p>`;
