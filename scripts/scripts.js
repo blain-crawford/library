@@ -56,19 +56,34 @@ const haveReadOrNot = () => {
 };
 
 const alterReadOrNotRead = (e) => {
-  let currentText = e.target.innerText
-  
-  if(currentText === 'Read!') {
+  let currentText = e.target.innerText;
+  let currentCard = e.target.dataset.reference;
+  if (currentText === 'Read!') {
     currentText = 'Still Need to Read!';
     e.target.textContent = '';
     e.target.textContent = currentText;
+    e.target.classList.remove('have-read');
+
+    for (let i = 0; i < libraryArray.length; i++) {
+      let currentBook = libraryArray[i];
+      if (currentCard == currentBook.id) {
+        currentBook.haveRead = currentText;
+      }
+    }
   } else if (currentText === 'Still Need to Read!') {
     currentText = 'Read!';
     e.target.textContent = '';
     e.target.textContent = currentText;
-  }
-  e.target.classList.toggle('have-read');
+    e.target.classList.add('have-read');
 
+    for (let i = 0; i < libraryArray.length; i++) {
+      let currentBook = libraryArray[i];
+      if (currentCard == currentBook.id) {
+        currentBook.haveRead = currentText;
+      }
+    }
+  }
+  console.log(libraryArray);
 };
 
 const clearLibraryBeforeAddingBooks = () => {
@@ -134,13 +149,17 @@ const addBooksToLibrary = () => {
     const readButton = document.createElement('div');
     const removeButton = document.createElement('div');
 
-    readButton.setAttribute('id', 'read-div')
+    readButton.setAttribute('id', 'read-div');
     bookContainer.classList.add('book-container');
     authorDiv.classList.add('book-container-line');
     titleDiv.classList.add('book-container-line');
     pagesDiv.classList.add('book-container-line');
     readButton.classList.add('book-container-line');
-    readButton.addEventListener('click', alterReadOrNotRead)
+    if (haveRead === 'Read!') {
+      readButton.classList.add('have-read');
+    }
+    readButton.addEventListener('click', alterReadOrNotRead);
+    readButton.setAttribute('data-reference', `${buttonId}`);
     removeButton.classList.add('book-container-remove');
     removeButton.setAttribute('id', `${buttonId}`);
 
