@@ -55,6 +55,22 @@ const haveReadOrNot = () => {
   }
 };
 
+const alterReadOrNotRead = (e) => {
+  let currentText = e.target.innerText
+  
+  if(currentText === 'Read!') {
+    currentText = 'Still Need to Read!';
+    e.target.textContent = '';
+    e.target.textContent = currentText;
+  } else if (currentText === 'Still Need to Read!') {
+    currentText = 'Read!';
+    e.target.textContent = '';
+    e.target.textContent = currentText;
+  }
+  e.target.classList.toggle('have-read');
+
+};
+
 const clearLibraryBeforeAddingBooks = () => {
   if (libraryDisplay.hasChildNodes()) {
     while (libraryDisplay.firstChild) {
@@ -115,27 +131,33 @@ const addBooksToLibrary = () => {
     const authorDiv = document.createElement('div');
     const titleDiv = document.createElement('div');
     const pagesDiv = document.createElement('div');
-    const readDiv = document.createElement('div');
+    const readButton = document.createElement('div');
     const removeButton = document.createElement('div');
+
+    readButton.setAttribute('id', 'read-div')
     bookContainer.classList.add('book-container');
     authorDiv.classList.add('book-container-line');
     titleDiv.classList.add('book-container-line');
     pagesDiv.classList.add('book-container-line');
-    readDiv.classList.add('book-container-line');
+    readButton.classList.add('book-container-line');
+    readButton.addEventListener('click', alterReadOrNotRead)
     removeButton.classList.add('book-container-remove');
     removeButton.setAttribute('id', `${buttonId}`);
+
     authorDiv.innerHTML = `<h2>Author</h2> <p>${newAuthor}</p>`;
     titleDiv.innerHTML = `<h2>Title</h2> <p>${newTitle}</p>`;
     pagesDiv.innerHTML = `<h2>Number of Pages</h2> <p>${numberOfPages}</p>`;
-    readDiv.innerHTML = `<h2>${haveRead}</h2>`;
+    readButton.innerText = `${haveRead}`;
     removeButton.innerHTML = `<button id=${buttonId} class='remove-button'>Remove</button>`;
     removeButton.addEventListener('click', removeFromLibrary);
+
     bookContainer.appendChild(authorDiv);
     bookContainer.appendChild(titleDiv);
     bookContainer.appendChild(pagesDiv);
-    bookContainer.appendChild(readDiv);
+    bookContainer.appendChild(readButton);
     bookContainer.appendChild(removeButton);
     libraryDisplay.appendChild(bookContainer);
+
     bookForm.classList.add('invisible');
     fullPage.classList.remove('darken');
   }

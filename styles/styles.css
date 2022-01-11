@@ -40,6 +40,22 @@ body {
   flex-direction: column;
 }
 
+
+
+.have-read {
+  background-color: pink;
+  box-shadow: 5px 5px 15px 5px #000000;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
+
+#read-div {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+
 .book-container, p, h2 {
   margin-top: 0px;
   margin-bottom: 0px;
@@ -47,7 +63,6 @@ body {
 
 .book-container-remove {
   margin: 0px 0px 5px 20px;
-  padding: px;
   text-align: center;
 }
 
