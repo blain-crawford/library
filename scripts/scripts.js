@@ -12,6 +12,7 @@ const removeButton = document.querySelector('#remove-book');
 const haveReadButton = document.querySelector('#have-read');
 let libraryArray = [];
 let bookId = 0;
+let buttonId = 0;
 
 function Book (id, author, title, numberOfPages, haveRead) {
   this.id = id;
@@ -60,27 +61,31 @@ const deleteBookFromLibrary = () => {
   deleteTitle = titleInput.value;
   deleteNumberOfPages = pagesInput.value;
   deleteHaveRead = haveReadOrNot();
-  let checkBook = new Book(deleteAuthor, deleteTitle, deleteNumberOfPages, deleteHaveRead);
+  deleteId = bookId;
+  let checkBook = new Book(deleteId, deleteAuthor, deleteTitle, deleteNumberOfPages, deleteHaveRead);
   for(let i = 0; i < libraryArray.length; i++){
+    let currentBook = libraryArray[i];
     if(
-      checkBook.author === libraryArray[i].author 
-      // checkBook.title === libraryArray[i].title && 
-      // checkBook.numberOfPages === libraryArray[i].numberOfPages &&
-      // checkBook.haveRead === libraryArray[i].haveRead
+      checkBook.author === currentBook.author &&
+      checkBook.title === currentBook.title && 
+      checkBook.numberOfPages ===currentBook.numberOfPages &&
+      checkBook.haveRead === currentBook.haveRead
       ) {
-          console.log(libraryArray[i]);
+          const index = libraryArray.indexOf(currentBook);
+          libraryArray.splice(index, 1);
       }
   }
-  // clearLibraryBeforeAddingBooks();
-  // addBooksToLibrary();
-  // bookForm.classList.add('invisible');
-  // fullPage.classList.remove('darken');
-  // console.log(checkBook);
-  // console.log(libraryArray);
+  clearLibraryBeforeAddingBooks();
+  addBooksToLibrary();
+  bookForm.classList.add('invisible');
+  fullPage.classList.remove('darken');
 };
 
 const addBooksToLibrary = () => {
+  
   for (let i = 0; i < libraryArray.length; i++) {
+    buttonId++;
+    console.log(buttonId)
     const bookContainer = document.createElement('div')
     bookContainer.classList.add('book-container');
     const newAuthor = libraryArray[i].author;
@@ -97,6 +102,7 @@ const addBooksToLibrary = () => {
     readDiv.classList.add('book-container-line');
     const removeButton = document.createElement('div')
     removeButton.classList.add('book-container-remove')
+    removeButton.setAttribute('id', `${buttonId}`);
     authorDiv.innerHTML = `<h2>Author</h2> <p>${newAuthor}</p>`;
     titleDiv.innerHTML = `<h2>Title</h2> <p>${newTitle}</p>`;
     pagesDiv.innerHTML = `<h2>Number of Pages</h2> <p>${numberOfPages}</p>`;
@@ -138,14 +144,28 @@ const createBook = () => {
   haveReadButton.checked = false;
   clearLibraryBeforeAddingBooks();
   libraryArray.push(newBook);
+  buttonId = 0;
   addBooksToLibrary();
-  console.log(libraryArray);
 };
 
-const removeFromLibrary = () => {
-  libraryArray.pop();
-  clearLibraryBeforeAddingBooks();
-  addBooksToLibrary();
+const removeFromLibrary = (e) => {
+  let bookIdToRemove = parseInt(e.target.id);
+  for(let i = 0; i < libraryArray.length; i++) {
+    let currentBook = libraryArray[i];
+
+    if(bookIdToRemove === currentBook.id) {
+      let index = libraryArray.indexOf(currentBook);
+      // libraryArray.splice(index, 1);
+      // console.log(currentBook.id);
+      console.log(bookIdToRemove);
+      // console.log(index);
+      // console.log(e.target);
+      // console.log(libraryArray);
+      // console.log(libraryArray);
+    }
+  }
+  // clearLibraryBeforeAddingBooks();
+  // addBooksToLibrary();
 };
 
 
