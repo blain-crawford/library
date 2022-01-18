@@ -1,3 +1,6 @@
+/**
+ * Dom Element Creation
+ */
 const closingButton = document.querySelector('#closing-button');
 const bookForm = document.querySelector('#book-entering-form');
 const showBookFormButton = document.querySelector('#show-book-entering-form');
@@ -14,6 +17,14 @@ let libraryArray = [];
 let bookId = 0;
 let buttonId = 0;
 
+/**
+ * constructor for book objects
+ * @param {*} id
+ * @param {*} author
+ * @param {*} title
+ * @param {*} numberOfPages
+ * @param {*} haveRead
+ */
 function Book(id, author, title, numberOfPages, haveRead) {
   this.id = id;
   this.author = author;
@@ -22,6 +33,9 @@ function Book(id, author, title, numberOfPages, haveRead) {
   this.haveRead = haveRead;
 }
 
+/**
+ * every time a book is deleted, this resets all id's from 1 and increasing in increments of 1
+ */
 const resetBookIdsFrom1 = () => {
   bookId = 0;
   for (let j = 0; j < libraryArray.length; j++) {
@@ -30,16 +44,25 @@ const resetBookIdsFrom1 = () => {
   }
 };
 
+/**
+ * this hides the form for entering a new book
+ */
 const hideBookForm = () => {
   bookForm.classList.add('invisible');
   fullPage.classList.remove('darken');
 };
 
+/**
+ * this shows the form for entering a new book
+ */
 const showBookForm = () => {
   bookForm.classList.remove('invisible');
   fullPage.classList.add('darken');
 };
 
+/**
+ * clears book form. . .
+ */
 const clearBookForm = () => {
   authorInput.value = '';
   titleInput.value = '';
@@ -47,6 +70,10 @@ const clearBookForm = () => {
   haveReadButton.checked = false;
 };
 
+/**
+ *
+ * @returns whether a book has been read or not
+ */
 const haveReadOrNot = () => {
   if (haveReadButton.checked) {
     return 'Read!';
@@ -55,6 +82,11 @@ const haveReadOrNot = () => {
   }
 };
 
+/**
+ *
+ * @param {*} e
+ * handles logic for altering a book from read to not read and vice versa
+ */
 const alterReadOrNotRead = (e) => {
   let currentText = e.target.innerText;
   let currentCard = e.target.dataset.reference;
@@ -86,6 +118,9 @@ const alterReadOrNotRead = (e) => {
   console.log(libraryArray);
 };
 
+/**
+ * clears the library to reset for adding books
+ */
 const clearLibraryBeforeAddingBooks = () => {
   if (libraryDisplay.hasChildNodes()) {
     while (libraryDisplay.firstChild) {
@@ -94,6 +129,15 @@ const clearLibraryBeforeAddingBooks = () => {
   }
 };
 
+/**
+ * 
+ * @returns handles logic for delete button in book form
+ * calls   
+ *  clearBookForm()
+    clearLibraryBeforeAddingBooks()
+    addBooksToLibrary()
+    haveReadOrNot()
+ */
 const deleteBookFromLibrary = () => {
   if (
     authorInput.value === '' ||
@@ -103,6 +147,7 @@ const deleteBookFromLibrary = () => {
     alert('ERROR: ALL FIELDS REQUIRED');
     return;
   }
+
   deleteAuthor = authorInput.value;
   deleteTitle = titleInput.value;
   deleteNumberOfPages = pagesInput.value;
@@ -115,6 +160,7 @@ const deleteBookFromLibrary = () => {
     deleteNumberOfPages,
     deleteHaveRead
   );
+
   for (let i = 0; i < libraryArray.length; i++) {
     let currentBook = libraryArray[i];
     if (
@@ -127,6 +173,7 @@ const deleteBookFromLibrary = () => {
       libraryArray.splice(index, 1);
     }
   }
+
   clearBookForm();
   clearLibraryBeforeAddingBooks();
   addBooksToLibrary();
@@ -134,10 +181,14 @@ const deleteBookFromLibrary = () => {
   fullPage.classList.remove('darken');
 };
 
+/**
+ * adds books to on-screen library by creating DOM objects to contain indeces from libraryArray
+ */
 const addBooksToLibrary = () => {
   buttonId = 0;
   for (let i = 0; i < libraryArray.length; i++) {
     buttonId++;
+
     const bookContainer = document.createElement('div');
     const newAuthor = libraryArray[i].author;
     const newTitle = libraryArray[i].title;
@@ -155,9 +206,11 @@ const addBooksToLibrary = () => {
     titleDiv.classList.add('book-container-line');
     pagesDiv.classList.add('book-container-line');
     readButton.classList.add('book-container-line');
+
     if (haveRead === 'Read!') {
       readButton.classList.add('have-read');
     }
+
     readButton.addEventListener('click', alterReadOrNotRead);
     readButton.setAttribute('data-reference', `${buttonId}`);
     removeButton.classList.add('book-container-remove');
@@ -182,9 +235,19 @@ const addBooksToLibrary = () => {
   }
 };
 
+/**
+ * handles logic for adding book to lobraryArray
+ * @returns Alert if all fields are not filled in
+ * calls
+ *  haveReadOrNot()
+ *  clearBookForm()
+ *  clearLibraryBeforeAddingBooks()
+ *  addBooksToLibrary()
+ */
 const createBook = () => {
   let readingStatus = haveReadOrNot();
   bookId++;
+
   if (
     authorInput.value === '' ||
     titleInput.value === '' ||
@@ -193,6 +256,7 @@ const createBook = () => {
     alert('ERROR: ALL FIELDS REQUIRED');
     return;
   }
+
   const newBook = new Book(
     bookId,
     authorInput.value,
@@ -200,6 +264,7 @@ const createBook = () => {
     pagesInput.value,
     readingStatus
   );
+
   clearBookForm();
   clearLibraryBeforeAddingBooks();
   libraryArray.push(newBook);
@@ -207,6 +272,14 @@ const createBook = () => {
   addBooksToLibrary();
 };
 
+/**
+ * handles logic for remove button in bookContainer
+ * @param {*} e links to remove button on bookContainer
+ * calls
+ *  resetBookIdsFrom1();
+    clearLibraryBeforeAddingBooks();
+    addBooksToLibrary();
+ */
 const removeFromLibrary = (e) => {
   let bookIdToRemove = parseInt(e.target.id);
   for (let i = 0; i < libraryArray.length; i++) {
@@ -217,6 +290,7 @@ const removeFromLibrary = (e) => {
       libraryArray.splice(index, 1);
     }
   }
+
   resetBookIdsFrom1();
   clearLibraryBeforeAddingBooks();
   addBooksToLibrary();
