@@ -95,27 +95,18 @@ const alterReadOrNotRead = (e) => {
     e.target.textContent = '';
     e.target.textContent = currentText;
     e.target.classList.remove('have-read');
-
-    for (let i = 0; i < libraryArray.length; i++) {
-      let currentBook = libraryArray[i];
-      if (currentCard == currentBook.id) {
-        currentBook.haveRead = currentText;
-      }
-    }
   } else if (currentText === 'Still Need to Read!') {
     currentText = 'Read!';
     e.target.textContent = '';
     e.target.textContent = currentText;
     e.target.classList.add('have-read');
-
-    for (let i = 0; i < libraryArray.length; i++) {
-      let currentBook = libraryArray[i];
-      if (currentCard == currentBook.id) {
-        currentBook.haveRead = currentText;
-      }
+  }
+  for (let i = 0; i < libraryArray.length; i++) {
+    let currentBook = libraryArray[i];
+    if (currentCard == currentBook.id) {
+      currentBook.haveRead = currentText;
     }
   }
-  console.log(libraryArray);
 };
 
 /**
@@ -169,8 +160,7 @@ const deleteBookFromLibrary = () => {
       checkBook.numberOfPages === currentBook.numberOfPages &&
       checkBook.haveRead === currentBook.haveRead
     ) {
-      const index = libraryArray.indexOf(currentBook);
-      libraryArray.splice(index, 1);
+      libraryArray.splice(i, 1);
     }
   }
 
@@ -286,8 +276,7 @@ const removeFromLibrary = (e) => {
     let currentBook = libraryArray[i];
 
     if (bookIdToRemove === currentBook.id) {
-      let index = libraryArray.indexOf(currentBook);
-      libraryArray.splice(index, 1);
+      libraryArray.splice(i, 1);
     }
   }
 
