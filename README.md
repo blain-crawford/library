@@ -12,5 +12,5 @@ Created as a way to store and keep track of a list of books, information about t
   -  Clone Repository
   -  Use LiveServer extensnion in VScode to run on localhost
   -  click on plus button to add book
-
-<img src="./images/add-button.gif" alt="movie of clicking add button"/>
+  
+ <video src="./images/add-button.mov" style=" width: 300px; border-radius: 10%;" autoplay loop></video>
