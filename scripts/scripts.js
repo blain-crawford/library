@@ -25,12 +25,14 @@ let buttonId = 0;
  * @param {*} numberOfPages
  * @param {*} haveRead
  */
-function Book(id, author, title, numberOfPages, haveRead) {
-  this.id = id;
-  this.author = author;
-  this.title = title;
-  this.numberOfPages = numberOfPages;
-  this.haveRead = haveRead;
+class Book {
+  constructor(id, author, title, numberOfPages, haveRead) {
+    this.id = id;
+    this.author = author;
+    this.title = title;
+    this.numberOfPages = numberOfPages;
+    this.haveRead = haveRead;
+  };
 }
 
 /**
